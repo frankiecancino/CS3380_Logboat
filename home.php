@@ -17,7 +17,7 @@
         session_start();
         if (!isset($_SESSION['UN'])) {
 
-                 header ("Location: /lab9/index.php");
+                 header ("Location: index.php");
 
         }
 
@@ -37,13 +37,13 @@
         if($admin == 0){
         echo "Welcome " . $_SESSION['UN'] . " to Logboat Brewery";
         echo "<br><br>";
-        echo "<button type=" . "submit" . "><a href=" . "/lab9/index.php" . ">Log Out</button>";
+        echo "<button type=" . "submit" . "><a href=" . "index.php" . ">Log Out</button>";
         }
         else{
 
         echo "Welcome to Logboat Brewery!";
         echo "<br><br>";
-        echo "<button type=" . "submit" . "><a href=" . "/lab9/index.php" . ">Log Out</button>";
+        echo "<button type=" . "submit" . "><a href=" . "index.php" . ">Log Out</button>";
 
         }
 ?>

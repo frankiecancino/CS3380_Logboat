@@ -5,17 +5,32 @@
   </head>
   <body>
     <br>
-    <hr>
     <div>
+    <div id="socialMedia">
       <form action="VerifyLogin.php" method="POST">
+        <hr>
         <br>
         <input  name="username"  placeholder="Username" required="yes" autofocus="yes">
         <input type="password" name="password" class="form-control" placeholder="Password" required="yes">
         <button  type="submit">Sign in</button>
       </form>
-      <br>
-     </div>
       <hr>
-      <br>
+     </div>
+      <image id="logboatLogo" src="images/logboatlogo.png" alt="logboat_logo">
+      <div id="loginForm">
+      <form action="VerifyLogin.php" method="POST">
+        <hr>
+        <br>
+        <input  name="username"  placeholder="Username" required="yes" autofocus="yes">
+        <input type="password" name="password" class="form-control" placeholder="Password" required="yes">
+        <button  type="submit">Sign in</button>
+      </form>
+      <hr>
+     </div>
+     </div>
+                             <form  action="register.php">
+                        <h2>Or Register</h2>
+                                <button type="submit">Register</button>
+                        </form>
   </body>
 </html>

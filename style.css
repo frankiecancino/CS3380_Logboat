@@ -1,3 +1,21 @@
 body {
 	background-image: url("images/background_image.png");
 }
+
+#socialMedia {
+	float: left;
+	margin-left: 35px;
+	margin-top: 50px;
+}
+
+#loginForm {
+	margin-left: 10px;
+	float: left;
+	margin-top: 50px;
+}
+
+#logboatLogo {
+	float: left;
+	margin-left: 150px;
+	margin-right: 100px;
+}

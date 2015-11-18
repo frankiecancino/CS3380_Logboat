@@ -28,7 +28,7 @@
         if (password_verify($PW, $hash)) {
                 session_start();
                 $_SESSION['UN'] = $UN;
-                header ("Location: home.php");
+                header ("Location: index.php");
         }else{
                 echo 'Invalid Username / password.';
                 echo "<form  action=\"register.php\">";

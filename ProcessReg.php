@@ -22,5 +22,5 @@
         session_start();
         $_SESSION['UN'] = $UN;
 
-        header ("Location: index.php");
+        header ("Location: home.php");
 ?>
