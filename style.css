@@ -1,5 +1,6 @@
 body {
 	background-image: url("images/background_image.png");
-	background-repeat: repeat-y, repeat-x;
+	background-repeat: repeat-y;
+	background-repeat: repeat-x;
 	background-attachment: fixed;
 }
