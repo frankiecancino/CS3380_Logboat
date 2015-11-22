@@ -2,9 +2,22 @@ body {
 	background-image: url("images/background_image.png");
 }
 
+#logboat_scene {
+	margin-top: 25px;
+	margin-left: 130px;
+	width: 1000px;
+	height: 600px
+}
+
+.social-icon {
+	height: 48px;
+ 	width: 45px;
+ 	margin-right: 25px;
+}
+
 #socialMedia {
 	float: left;
-	margin-left: 35px;
+	margin-left: 130px;
 	margin-top: 50px;
 }
 
@@ -16,6 +29,6 @@ body {
 
 #logboatLogo {
 	float: left;
-	margin-left: 150px;
+	margin-left: 135px;
 	margin-right: 100px;
 }

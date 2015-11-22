@@ -5,15 +5,17 @@
   </head>
   <body>
     <br>
-    <div>
+    <div id="container">
+      <hr>
     <div id="socialMedia">
-      <form action="VerifyLogin.php" method="POST">
-        <hr>
+      <hr>
+        <a href="http://instagram.com/logboatbrewing"> <img class="social-icon" src="images/instagram_icon.png">
+        </a>
+        <a href="http://twitter.com/logboatbrewing"> <img class="social-icon" src="images/twitter_icon.png">
+        </a>
+        <a href="https://www.facebook.com/LogboatBrewingCompany"> <img class="social-icon" src="images/facebook_icon.png">
+        </a>
         <br>
-        <input  name="username"  placeholder="Username" required="yes" autofocus="yes">
-        <input type="password" name="password" class="form-control" placeholder="Password" required="yes">
-        <button  type="submit">Sign in</button>
-      </form>
       <hr>
      </div>
       <image id="logboatLogo" src="images/logboatlogo.png" alt="logboat_logo">
@@ -28,6 +30,8 @@
       <hr>
      </div>
      </div>
+     <image id="logboat_scene" src="images/logboat_scene.jpg" alt="logboat_scene">
+     
                              <form  action="register.php">
                         <h2>Or Register</h2>
                                 <button type="submit">Register</button>
