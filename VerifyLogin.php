@@ -1,41 +1,28 @@
 <?php
+        include 'include.php';
 
-        if (!isset($_SERVER['HTTPS']) || !$_SERVER['HTTPS']) {
-
-                $url = 'https://'.$_SERVER['HTTP_HOST'].$SERVER['REQUEST_URI'];
-                header('Location: ' . $url);
+        // Get POST variables
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        
+        // SQL query        
+        $sql = "SELECT `hashed_password`, `admin` FROM `user` WHERE `username` = '$username';";
+        
+        // Execute query and get password hash
+        if ($res = mysqli_query($con, $sql)){
+                
+                $resArray = mysqli_fetch_array($res);
+                $hashedPassword = $resArray['hashed_password'];
+                $isAdmin = $resArray['admin'];
         }
         
-
-        $UN = $_POST['username'];
-        $PW = $_POST['password'];
-        
-        include 'connect.php';
-        $sql = "SELECT hashed_password FROM user WHERE username =". " \"$UN\"; ";
-        echo $sql;
-
-        $results = mysqli_query($con, $sql);
-
-        echo "<br><br>";
-
-        $Rarray = mysqli_fetch_array($results);
-        $hash = $Rarray["hashed_password"];
-
-        echo $hash;
-        echo "<br><br>";
-
-
-        if (password_verify($PW, $hash)) {
-                session_start();
-                $_SESSION['UN'] = $UN;
-                header ("Location: index.php");
+        // If password matches
+        if ($hashedPassword === crypt($password, $hashedPassword)) {
+                $_SESSION['UN'] = $username;
+                $_SESSION['username'] = $username;
+                $_SESSION['admin'] = $isAdmin;
+                header("Location: home.php");
         }else{
-                echo 'Invalid Username / password.';
-                echo "<form  action=\"register.php\">";
-                echo "<h4>Register</h4>";
-                echo "<button type=\"submit\">Register</button>";
-                echo "</form>";
-                echo "<br><br>Or Return Home<br><br>";
-                echo "<button type=" . "submit" . "><a href=" . "index.php" . ">Return To Login</button>";
+                header("Location: index.php");
         }
 ?>

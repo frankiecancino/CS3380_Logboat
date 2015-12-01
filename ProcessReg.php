@@ -1,28 +1,29 @@
 <?php
-        if (!isset($_SERVER['HTTPS']) || !$_SERVER['HTTPS']) {
-
-                $url = 'https://'.$_SERVER['HTTP_HOST'].$SERVER['REQUEST_URI'];
-                header('Location: ' . $url);
+        include 'include.php';
+        
+        // Get POST variables
+        if (isset($_POST['username']) && isset($_POST['password'])){
+                $username = $_POST['username'];
+                $password = $_POST['password'];
         }
-
-        $UN = $_POST['username'];
-        $PW = $_POST['password'];
-
-        echo $UN . " <br><br> ";
-        echo $PW;
+        else{
+                // ToDo: Better redirect system
+                die("Username and/or Password not submitted");
+        }
         
+        // Hash Password
+        $hashedPassword = crypt($password);
         
-        
-        echo password_hash("rasmuslerdorf", PASSWORD_DEFAULT);
-        
-        $hashedPW = password_hash($PW , PASSWORD_DEFAULT);
-        echo $hashedPW;
+        // Admin check
+        $admin = isset($_POST['admin']) ? 1 : 0;
        
-/*     include 'connect.php';
-        $sql = "INSERT INTO user VALUES('0','$UN','PASSWORD_DEFAULT','$hashedPW')";
-        mysqli_query($con,$sql);
-        session_start();
-        $_SESSION['UN'] = $UN;
-        header ("Location: /home.php");
-*/
+        // Insert into database
+        $sql = "INSERT INTO `user` (`username`, `salt`, `hashed_password`, `admin`) VALUES ('$username', '0', '$hashedPassword', $admin)";
+        
+        // Execute query
+        mysqli_query($con,$sql) or die("Cannot execute query"); // ToDo: Output mysql error
+        
+        // Redirect on successful registration
+        header ("Location: home.php");
+        
 ?>

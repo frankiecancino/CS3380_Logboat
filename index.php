@@ -9,12 +9,9 @@
       <hr>
     <div id="socialMedia">
       <hr>
-        <a href="http://instagram.com/logboatbrewing"> <img class="social-icon" src="images/instagram_icon.png">
-        </a>
-        <a href="http://twitter.com/logboatbrewing"> <img class="social-icon" src="images/twitter_icon.png">
-        </a>
-        <a href="https://www.facebook.com/LogboatBrewingCompany"> <img class="social-icon" src="images/facebook_icon.png">
-        </a>
+        <a href="http://instagram.com/logboatbrewing"><img class="social-icon" src="images/instagram_icon.png"></a>
+        <a href="http://twitter.com/logboatbrewing"><img class="social-icon" src="images/twitter_icon.png"></a>
+        <a href="https://www.facebook.com/LogboatBrewingCompany"><img class="social-icon" src="images/facebook_icon.png"></a>
         <br>
       <hr>
      </div>
@@ -31,10 +28,5 @@
      </div>
      </div>
      <image id="logboat_scene" src="images/logboat_scene.jpg" alt="logboat_scene">
-     
-                             <form  action="register.php">
-                        <h2>Or Register</h2>
-                                <button type="submit">Register</button>
-                        </form>
   </body>
 </html>

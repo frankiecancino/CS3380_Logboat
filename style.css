@@ -32,3 +32,9 @@ body {
 	margin-left: 135px;
 	margin-right: 100px;
 }
+
+select {
+   	height: 2.5em;
+	border-radius: 4px;
+	border-color: lightgray;
+	}

@@ -1,52 +1,11 @@
 
 <?php
-        if (!isset($_SERVER['HTTPS']) || !$_SERVER['HTTPS']) {
-
-                $url = 'https://'.$_SERVER['HTTP_HOST'].$SERVER['REQUEST_URI'];
-                header('Location: ' . $url);
-        }
-
+        include 'include.php';
+        
+        $adminString = $isAdmin ? "(Admin)" : "";
+        echo "Welcome $loggedInUsername $adminString to Logboat Brewery!";
+        
 ?>
-<html>
-        <head>
-                <title>Logboat Brewery Company</title>
-        </head>
-
-        <body>
-<?php
-        session_start();
-        if (!isset($_SESSION['UN'])) {
-
-                 header ("Location: index.php");
-
-        }
-
-        $UN = $_SESSION['UN'];
-
-        include 'connect.php';
-
-        $sql = "SELECT admin FROM user WHERE username =". " \"$UN\"; ";
-        $results = mysqli_query($con, $sql);
-
-        echo "<br><br>";
-
-        $Rarray = mysqli_fetch_array($results);
-        $admin = $Rarray["admin"];
-
-
-        if($admin == 0){
-        echo "Welcome " . $_SESSION['UN'] . " to Logboat Brewery";
-        echo "<br><br>";
-        echo "<button type=" . "submit" . "><a href=" . "index.php" . ">Log Out</button>";
-        }
-        else{
-
-        echo "Welcome to Logboat Brewery!";
-        echo "<br><br>";
-        echo "<button type=" . "submit" . "><a href=" . "index.php" . ">Log Out</button>";
-
-        }
-?>
-
+        <a href='logout.php'>Log Out</a>
         </body>
 </html>
