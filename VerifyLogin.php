@@ -1,4 +1,14 @@
 <?php
+        /*
+         * VerifyLogin.php
+         *
+         * Description: Processes logins. Verifies using hashing and salting.
+         * Authors:     Quinton D Miller
+         *
+         */  
+        $pageOptions["loginRequired"] = false;
+        $pageOptions["script"] = true; 
+           
         include 'include.php';
 
         // Get POST variables
@@ -14,15 +24,20 @@
                 $resArray = mysqli_fetch_array($res);
                 $hashedPassword = $resArray['hashed_password'];
                 $isAdmin = $resArray['admin'];
+                
         }
         
         // If password matches
         if ($hashedPassword === crypt($password, $hashedPassword)) {
+                
                 $_SESSION['UN'] = $username;
                 $_SESSION['username'] = $username;
                 $_SESSION['admin'] = $isAdmin;
                 header("Location: home.php");
+                
         }else{
+                
                 header("Location: index.php");
+                
         }
 ?>

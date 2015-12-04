@@ -1,4 +1,13 @@
 <?php
+        /*
+	 * ProcessReg.php
+	 *
+	 * Description: Adds users to database.
+	 * Authors:     Quinton D Miller
+	 *
+	 */
+        $pageOptions["script"] = true;
+         
         include 'include.php';
         
         // Get POST variables

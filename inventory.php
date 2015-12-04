@@ -4,6 +4,7 @@
 		header('Location: ' . $url);
 		//exit;
 	}
+	include 'include.php';
 ?>
 
 <html>
@@ -12,24 +13,32 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-		<ul class="nav nav-tabs">
-			<li><a href="https://logboatbrewery.azurewebsites.net/home.php">Home</a></li>
-			<li><a href="https://logboatbrewery.azurewebsites.net/brew.php">Brew</a></li>
-			<li><a href="https://logboatbrewery.azurewebsites.net/kegs.php">Kegs</a></li>
-			<li class="active"><a href="https://logboatbrewery.azurewebsites.net/inventory.php">Inventory</a></li>
-			<li><a href="https://logboatbrewery.azurewebsites.net/report.php">Reports</a></li>
-		</ul>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		  		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   		<link rel="stylesheet" href="/resources/demos/style.css">
-  		<script>
-  		$(function() {
-    		$( "#datepicker" ).datepicker();
-  		});
-  		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="container">
+				<div class="col-md"
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<form action="<?=$_SERVER['PHP_SHELF']?>"method="POST">
+					<div class="col-md-2">
+						<h5>Add New Ingredient:</h5>
+					</div>
+					<div class="col-md-1">
+						<div class="form-group">
+							<input type="text" class="form-control" name="ingredient">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-1"></div>
@@ -37,16 +46,16 @@
 					<h5>Ingredient:</h5>
 				</div>
 				<div class="col-md-1">
-					<h5>Amount:<h5>
+					<h5>Amount:</h5>
 				</div>
 				<div class="col-md-1">
-					<h5>Unit:<h5>
+					<h5>Unit:</h5>
 				</div>
 				<div class="col-md-2">
-					<h5>Exp Date (mm/dd/yyyy):<h5>
+					<h5>Expiration Date:</h5>
 				</div>
 				<div class="col-md-1">
-					<h5>Lot Num:<h5>
+					<h5>Lot Num:</h5>
 				</div>
 			</div>
 			<div class="row">
@@ -67,6 +76,11 @@
 							<input type="text" class="form-control" name="unit">
 						</div>
 					</div>
+					<script>
+  					$(function() {
+    					$( "#datepicker" ).datepicker();
+  					});
+  					</script>
 					<div class="col-md-2">
 						<div class="form-group">
 							<input type="text" class="form-control" name="expdate" id="datepicker">

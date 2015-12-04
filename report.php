@@ -4,6 +4,7 @@
 		header('Location: ' . $url);
 		//exit;
 	}
+	include 'include.php';
 ?>
 <html>
 	<head>
@@ -11,15 +12,9 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="Chart.js"></script>
 	</head>
 	<body>
-		<ul class="nav nav-tabs">
-			<li><a href="https://logboatbrewery.azurewebsites.net/home.php">Home</a></li>
-			<li><a href="https://logboatbrewery.azurewebsites.net/brew.php">Brew</a></li>
-			<li><a href="https://logboatbrewery.azurewebsites.net/kegs.php">Kegs</a></li>
-			<li><a href="https://logboatbrewery.azurewebsites.net/inventory.php">Inventory</a></li>
-			<li class="active"><a href="https://logboatbrewery.azurewebsites.net/report.php">Reports</a></li>
-		</ul>
 		<meta charset="utf-8">
   		<title>jQuery UI Datepicker - Default functionality</title>
   		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -31,18 +26,9 @@
     		$( "#datepicker" ).datepicker();
   		});
   		</script>
-		<script>
-  		$(function() {
-    		$( "#datepicker2" ).datepicker();
-  		});
-  		</script>
-		<script>
-  		$(function() {
-    		$( "#datepicker3" ).datepicker();
-  		});
-  		</script>
 		  
 		<div class="container">
+			<h3>6 month reports</h3>
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-2">
