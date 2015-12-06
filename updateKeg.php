@@ -6,7 +6,8 @@
         * Authors:     Quinton D Miller
         *
         */		
-	
+	$pageOptions["redirectTo"] = "kegs.php";
+        
 	include 'include.php';
 	
 	// Check if keg was submitted
@@ -24,7 +25,7 @@
 	// Query
         $sql = "SELECT * FROM brew_keg JOIN keg USING(keg_id) 
                 WHERE keg_id = $kegId AND (fill_date IS NULL OR ship_date IS NULL OR return_date IS NULL OR brew_id IS NULL) LIMIT 1";
-
+        
         // If query is successful
         if ($res = mysqli_query($con, $sql)){
         
@@ -36,12 +37,11 @@
                         $brewId = $row['brew_id'];
                         $shipDate = $row['ship_date'];
                         $returnDate = $row['return_date'];
+                        $rowId = $row['row_id'];
         		
         	}
         	
         }
-        
-        echo "$kegId | $fillDate | $brewId | $shipDate | $returnDate<br>";
         
         /* Determine Keg State */
         // Unfilled Keg
@@ -51,9 +51,11 @@
         <div class='col-sm-6'>
                 <h1>Fill Keg : <?php echo $barcode; ?></h1>
                 <form action='processUpdateKeg.php' method='POST'>
+                        <input type='hidden' name='rowId' value='<?php echo $rowId; ?>'>
+                        <input type='hidden' name='kegState' value='0'>
                         <div class='form-group'>
                                 <label>Brew Filling With</label>
-                                <select name='brew_id' class='form-control'>
+                                <select name='brewId' class='form-control'>
 <?php
                                         // Query
                                         // ToDo: Keep it from selecting unfinished brews (end_date IS NOT NULL)
@@ -100,6 +102,8 @@
         <div class='col-sm-6'>
                 <h1>Ship Keg : <?php echo $barcode; ?></h1>
                 <form action='processUpdateKeg.php' method='POST'>
+                        <input type='hidden' name='rowId' value='<?php echo $rowId; ?>'>
+                        <input type='hidden' name='kegState' value='1'>
                         <div class='form-group'>
                                 <label>Shipping To</label>
                                 <input type='text' class='form-control' name='location' placeholder='Location' autofocus='yes' required='yes'>
@@ -126,6 +130,9 @@
         <div class='col-sm-6'>
                 <h1>Receive Keg : <?php echo $barcode; ?></h1>
                 <form action='processUpdateKeg.php' method='POST'>
+                        <input type='hidden' name='rowId' value='<?php echo $rowId; ?>'>
+                        <input type='hidden' name='rowId' value='<?php echo $kegId; ?>'>
+                        <input type='hidden' name='kegState' value='2'>
                         <div class="form-group">
                                 <label>Return Date</label>
                                 <div class='input-group date' id='datetimepicker1'>
@@ -142,8 +149,8 @@
 <?php
         }
         else{
-                die("Incorrect state");                              
+                redirect2("Incorrect state", "warning");                              
         }	
         
 
-?>
+?>	

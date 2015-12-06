@@ -89,3 +89,41 @@
         </ul>
 		-->
 		<div class='container' style='margin-top: 10px;'>
+<?php
+	
+	/* Get Alert Variables */
+	$isAlert = true;
+	if (!empty($_SESSION['successMsg'])){
+		
+		$alertClass = "success";
+		$alertMsg = $_SESSION['successMsg'];
+		$_SESSION['successMsg'] = "";
+		
+	} else if (!empty($_SESSION['infoMsg'])){
+		
+		$alertClass = "info";
+		$alertMsg = $_SESSION['infoMsg'];
+		$_SESSION['infoMsg'] = "";
+		
+	} else if (!empty($_SESSION['warningMsg'])){
+		
+		$alertClass = "danger";
+		$alertMsg = $_SESSION['warningMsg'];
+		$_SESSION['warningMsg'] = "";
+		
+	} else{
+		
+		$isAlert = false;
+		
+	}
+	
+	/* Alerts */
+	if ($isAlert){
+?>
+		<div class="alert alert-<?php echo $alertClass; ?> alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <?php echo $alertMsg; ?>
+		</div>
+<?php 
+        } 
+?>

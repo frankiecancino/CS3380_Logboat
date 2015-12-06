@@ -14,6 +14,9 @@
 	// Database connection
 	include 'connect.php';
 	
+	// Functions
+	include 'functions.php';
+	
 	/* Set Page Options */
 	// Defaults
 	$pageOptionsDefaults = array("loginRequired" => true

@@ -6,37 +6,35 @@
 	}
 	include 'include.php';
 ?>
-
-<html>
-	<head>
-		<title>Inventory</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		  		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  		<link rel="stylesheet" href="/resources/demos/style.css">
-	</head>
-	<body>
-		<div class="container">
-			<div class="container">
-				<div class="col-md"
-			</div>
-		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-1"></div>
-				<form action="<?=$_SERVER['PHP_SHELF']?>"method="POST">
-					<div class="col-md-2">
-						<h5>Add New Ingredient:</h5>
-					</div>
-					<div class="col-md-1">
-						<div class="form-group">
-							<input type="text" class="form-control" name="ingredient">
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addIngModal">
+						Add New Ingredient
+					</button>
+					<div class="modal fade" id="addIngModal" tabindex="-1" role="dialog" aria-labelledby="lblModal">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Add An Ingredient</h4>
+								</div>
+								<div class="modal-body">
+									<form action='ProcessIngredient.php' method='POST'>
+										<div class='form-group'>
+											<label>Ingredient</label>
+											<input type='text' name='name' placeholder='Name' class='form-control' required='yes' autofocus='yes'>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Add Ingredient</button>
+										</div>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 		<div class="container">

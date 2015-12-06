@@ -7,7 +7,8 @@
 	 *
 	 */
 	$pageOptions["script"] = true;
-	 
+	$pageOptions["redirectTo"] = "beer2.php";
+	
 	include 'include.php';
 	
 	// Check post variable
@@ -29,7 +30,7 @@
 	// Execute
 	mysqli_query($con, $sql) or die("Error description: " . mysqli_error($con));
 	
-	header("Location: beer2.php");
+	redirect2("Successfully added beer: $name", "success");
 		
 	
 ?>

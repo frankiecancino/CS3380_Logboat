@@ -119,16 +119,16 @@
 			</div>
 			<div class="row">
 				<div class="col-md-1"></div>
-				<form action="ProcessLookUpKeg.php" method="POST">
+				<form action="kegInfo.php" method="GET" >
 				<div class="col-md-3">
 						<div class="form-group">
-							<input type="text" class="form-control" name="barcode" required="yes">
+							<input type="text" class="form-control" name="kegId" required="yes">
 						</div>
 				</div>
 
 				<div class="col-md-1">
 						<div class="form-group">
-							<input class="btn btn-info" type="submit" name="submit" value="submit" id="button"/>
+							<input class="btn btn-info" type="submit" id="button"/>
 						</div>
 					</div>
 				</div>

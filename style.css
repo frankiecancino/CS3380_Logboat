@@ -3,10 +3,12 @@ body {
 }
 
 #logboat_scene {
-	margin-top: 25px;
-	margin-left: 130px;
-	width: 1000px;
-	height: 600px
+	display: block;
+	padding: 25px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 76%;
+	height: auto;
 }
 
 .social-icon {
@@ -17,20 +19,23 @@ body {
 
 #socialMedia {
 	float: left;
-	margin-left: 130px;
+	margin-left: 12%;
 	margin-top: 50px;
 }
 
 #loginForm {
-	margin-left: 10px;
+	margin-left: 0%;
 	float: left;
 	margin-top: 50px;
 }
 
 #logboatLogo {
+	display: block;
 	float: left;
-	margin-left: 135px;
-	margin-right: 100px;
+	margin-left: 9%;
+	margin-right: 8%;
+	width: 18%;
+	height: auto;
 }
 
 select {

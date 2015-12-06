@@ -31,7 +31,7 @@
 	}
 	
 	// Query
-	$sql = "INSERT INTO recipe (name, amount, ingredient_id, unit_id) VALUES ('$beername', '$amount', '$ingredient', '$unit');";
+	$sql = "INSERT INTO recipe (name, amount, ingredient_name, unit_name) VALUES ('$beername', '$amount', '$ingredient', '$unit');";
 	
 	// Execute
 	mysqli_query($con, $sql) or die("Error: " . mysqli_error($con));

@@ -7,6 +7,8 @@
      *
      */		
 	 
+	$pageOptions["redirectTo"] = "kegs.php";
+	
 	include 'include.php';
 	
 	// Check if keg was submitted
@@ -17,7 +19,7 @@
 	}
 	else{
 		
-		die("No Keg Id supplied");
+		redirect2("No Keg Id supplied", "warning");
 		
 	}
 	
@@ -26,7 +28,13 @@
 	
 	// If query is successful
 	if ($res = mysqli_query($con, $sql)){
-	
+?>	
+
+<div class='col-sm-6'>
+	<h1>Keg Entries</h1>
+	<div class="table-responsive">
+		
+<?php	
 		// Loop through all rows
 		while ($row = mysqli_fetch_array($res)){
 		
