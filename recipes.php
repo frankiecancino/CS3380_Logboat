@@ -57,7 +57,7 @@
                         					while ($row = mysqli_fetch_array($res)){
                                                 
                                                 $rowTypeId = $row['ingredient_id'];
-                                                $rowType = $row['name'];
+                                                $rowType = $row['ingredient_name'];
                                                 echo "<option value='$rowType'>$rowType</option>";
                         					}
                                			}
@@ -100,27 +100,38 @@
 			</form>	
 		</div>
 		<div class='row'>
-		        <div class='col-sm-6'>
-		        	<h1>Recipes</h1>
+		        <div class='col-sm-12'>
+		        	<h1 class="text-center">Recipes</h1>
 		<?php
 		        // Query
-		        $sql = "SELECT * FROM recipe ORDER BY name ASC;";
+		        $sql = "SELECT * FROM recipe ORDER BY name ASC, ingredient_name ASC;";
 		        
 		        // If query is successful
 			if ($res = mysqli_query($con, $sql)){
 				
+				$tempName = $row['name'];
+				$count = 0;
+				
 				// Loop through all rows
-				while ($row = mysqli_fetch_array($res)){
+				while ($rowName == $tempName && $row = mysqli_fetch_array($res)){
 					
 					$rowName = $row['name'];
 					$rowAmount = $row['amount'];
 					$rowIngredient = $row['ingredient_name'];
 					$rowUnit = $row['unit_name'];
 					
+					if ($tempName != $rowName)
+					{
+						echo "<h2>$rowName</h2>";
+						$count++;
+					}
 					
+					echo "$rowIngredient: $rowAmount $rowUnit<br>";
+					//echo "Name: $rowName<br> Ingredient: $rowIngredient<br> Amount: $rowAmount<br> Unit: $rowUnit<br><br>";
 					
-		            echo "Name: $rowName<br> Ingredient: $rowIngredient<br> Amount: $rowAmount<br> Unit: $rowUnit<br><br>";
+					$tempName = $row['name'];
 				}
+				echo "<br><p class='text-center'>Total beers: $count</p>";
 			}
 		        
 		        echo "</div></div>";

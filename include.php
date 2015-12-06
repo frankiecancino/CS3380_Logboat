@@ -40,7 +40,7 @@
 	/* Variables */
 	$fileName         = basename($_SERVER['PHP_SELF']);
 	$loggedInUsername = isset($_SESSION['UN']) ? $_SESSION['UN'] : "";
-	$isAdmin          = isset($_SESSION['admin']) ? $_SESSION['UN'] : 0;
+	$isAdmin          = isset($_SESSION['admin']) ? $_SESSION['admin'] : 0;
 	$isLoggedIn       = !empty($loggedInUsername);
 		
 	/* Login Checking */

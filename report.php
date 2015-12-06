@@ -52,42 +52,43 @@
 					</div>
 				</form>	
 			</div>
-		<script src="Chart.js"></script>
 		<script type="text/javascript" src="fusioncharts-suite-xt/js/fusioncharts.js"></script>
 		<script type="text/javascript" src="fusioncharts-suite-xt/js/themes/fusioncharts.theme.ocean.js"></script>
+
 <?php
-	include 'includes/fusioncharts.php';
-	$columnChart = new FusionCharts("column2d", "ex1" , 600, 400, "chart-1", "json", '{  
+	include 'fusioncharts.php';
+	$columnChart = new FusionCharts("column3d", "ex1" , 600, 400, "chart-1", "json", '{  
 		   "chart":{  
-			  "caption":"Harry\'s SuperMart",
-			  "subCaption":"Top 5 stores in last month by revenue",
+			  "caption":"Logboat\'s Reports",
+			  "subCaption":"Top 5 brews in the last month by revenue",
 			  "numberPrefix":"$",
 			  "theme":"ocean"
 		   },
 		   "data":[  
 			  {  
-				 "label":"Bakersfield Central",
+				 "label":"Shiphead",
 				 "value":"880000"
 			  },
 			  {  
-				 "label":"Garden Groove harbour",
+				 "label":"Mamoot",
 				 "value":"730000"
 			  },
 			  {  
-				 "label":"Los Angeles Topanga",
+				 "label":"Snapper",
 				 "value":"590000"
 			  },
 			  {  
-				 "label":"Compton-Rancho Dom",
+				 "label":"Lookout",
 				 "value":"520000"
 			  },
 			  {  
-				 "label":"Daly City Serramonte",
+				 "label":"Bear Hair",
 				 "value":"330000"
 			  }
 		   ]
 		}');
 	$columnChart->render();
 ?>
+	<div id="chart-1"></div>
 	</body>
 </html>

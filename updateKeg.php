@@ -6,7 +6,7 @@
         * Authors:     Quinton D Miller
         *
         */		
-	$pageOptions["redirectTo"] = "kegs.php";
+	$pageOptions["redirectTo"] = "kegInfo.php?kegId=" . $_GET['kegId'];
         
 	include 'include.php';
 	

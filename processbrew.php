@@ -23,7 +23,15 @@
 		die("The end date was not entered correctly.");
 	}
 	
-	$sql = "INSERT INTO brew (beer_name) VALUES ('$beername')";
-	mysqli_query($con,$sql) or die("Error description: " . mysqli_error($con));
+	//$sql = "INSERT INTO brew (beer_name) VALUES ('$beername')";
+	//mysqli_query($con,$sql) or die("Error description: " . mysqli_error($con));
+	
+	// Query
+	$sql = "INSERT INTO brew (beer_name, start_date, end_date, user) VALUES ('$beername', '$startdate', '$enddate', '$loggedInUsername');";
+	
+	// Execute
+	mysqli_query($con, $sql) or die("Error: " . mysqli_error($con));
+	
+	header("Location: brew.php");
 	
 ?>

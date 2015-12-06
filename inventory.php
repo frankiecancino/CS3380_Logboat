@@ -17,7 +17,7 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title" id="myModalLabel">Add An Ingredient</h4>
+									<h4 class="modal-title" id="myModalLabel">Add an Ingredient</h4>
 								</div>
 								<div class="modal-body">
 									<form action='ProcessIngredient.php' method='POST'>
@@ -28,6 +28,35 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 											<button type="submit" class="btn btn-primary">Add Ingredient</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row top-buffer">
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUnitModal">
+						Add New Unit
+					</button>
+					<div class="modal fade" id="addUnitModal" tabindex="-1" role="dialog" aria-labelledby="lblModal">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Add a Unit</h4>
+								</div>
+								<div class="modal-body">
+									<form action='ProcessUnit.php' method='POST'>
+										<div class='form-group'>
+											<label>Unit</label>
+											<input type='text' name='name' placeholder='Name' class='form-control' required='yes' autofocus='yes'>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Add Unit</button>
 										</div>
 									</form>
 								</div>
@@ -58,43 +87,64 @@
 			</div>
 			<div class="row">
 				<div class="col-md-1"></div>
-				<form action="<?=$_SERVER['PHP_SELF']?>"method="POST">
-					<div class="col-md-3">
-						<div class="form-group">
-							<input type="text" class="form-control" name="ingredient">
-						</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<select type="text" class="form-control" name="ingredient">
+							<?php
+								$sql = "SELECT * FROM ingredient;";
+								
+								if($res = mysqli_query($con, $sql)){
+									while($row = mysqli_fetch_array($res)){
+										$rowIng = $row['ingredient_name'];
+										echo "<option value='$rowIng'>$rowIng</option>";
+									}
+								}
+							?>
+						</select>
 					</div>
-					<div class="col-md-1">
-						<div class="form-group">
-							<input type="text" class="form-control" name="amount">
-						</div>
+				</div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<input type="number" step=".01" min="0" class="form-control" name="amount" required>
 					</div>
-					<div class="col-md-1">
-						<div class="form-group">
-							<input type="text" class="form-control" name="unit">
-						</div>
+				</div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<select class="form-control" name="unit" required>
+							<?php
+								$sql = "SELECT * FROM unit;";
+                                
+                        		if ($res = mysqli_query($con, $sql)){
+                        			while ($row = mysqli_fetch_array($res)){
+                                        $rowTypeId = $row['unit_id'];
+                                        $rowType = $row['unit_type'];
+                                        echo "<option value='$rowType'>$rowType</option>";
+                        			}
+                           		}	
+							?>
+						</select>
 					</div>
-					<script>
-  					$(function() {
-    					$( "#datepicker" ).datepicker();
-  					});
-  					</script>
-					<div class="col-md-2">
-						<div class="form-group">
-							<input type="text" class="form-control" name="expdate" id="datepicker">
-						</div>
+				</div>
+				<script>
+  				$(function() {
+   					$( "#datepicker" ).datepicker();
+  				});
+  				</script>
+				<div class="col-md-2">
+					<div class="form-group">
+						<input type="text" class="form-control" name="expdate" id="datepicker">
 					</div>
-					<div class="col-md-1">
-						<div class="form-group">
-							<input type="text" class="form-control" name="lotnum">
-						</div>
+				</div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<input type="text" class="form-control" name="lotnum">
 					</div>
-					<div class="col-md-1">
-						<div class="form-group">
-							<input class="btn btn-info" type="submit" name="submit" value="submit" id="button"/>
-						</div>
+				</div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<input class="btn btn-info" type="submit" name="submit" value="submit" id="button"/>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 		<?php

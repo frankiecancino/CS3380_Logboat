@@ -4,7 +4,6 @@
   		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  		<link rel="stylesheet" href="/resources/demos/style.css">
   		<script>
   		$(function() {
     		$( "#datepicker" ).datepicker();
@@ -71,5 +70,42 @@
 						</div>
 				</form>	
 		</div>
+		
+		<?php
+		        // Query
+		        $sql = "SELECT * FROM brew ORDER BY end_date ASC, start_date ASC, beer_name ASC;";
+		        
+		        // If query is successful
+			if ($res = mysqli_query($con, $sql)){
+				
+				//$tempName = $row['name'];
+				$count = 0;
+				
+				// Loop through all rows
+				while ($rowName == $tempName && $row = mysqli_fetch_array($res)){
+					
+					//$tempName = $row['name'];
+					$rowName = $row['beername'];
+					$rowStart = $row['startdate'];
+					$rowEnd = $row['enddate'];
+					$rowUnit = $row['unit_name'];
+					
+					if ($tempName != $rowName)
+					{
+						echo "<h2>$rowName</h2>";
+						$count++;
+					}
+					
+					echo "$rowIngredient: $rowAmount $rowUnit<br>";
+					//echo "Name: $rowName<br> Ingredient: $rowIngredient<br> Amount: $rowAmount<br> Unit: $rowUnit<br><br>";
+					
+					//$tempName = $row['name'];
+				}
+				echo "<br><p class='text-center'>Total brews: $count</p>";
+			}
+		        
+		        echo "</div></div>";
+		        include 'footer.php';        
+		?>
 	</body>
 </html>

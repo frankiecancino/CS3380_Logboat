@@ -119,10 +119,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-1"></div>
-				<form action="kegInfo.php" method="GET" >
+				<form action="kegInfo.php" method="POST" >
 				<div class="col-md-3">
 						<div class="form-group">
-							<input type="text" class="form-control" name="kegId" required="yes">
+							<input type="text" class="form-control" name="barcode" required="yes">
 						</div>
 				</div>
 
@@ -172,7 +172,7 @@
 			
 			}
 			
-			//query for kegs shipped out
+			//query for amount of kegs shipped out
 			$sql = "SELECT COUNT(*) AS total_shipped FROM brew_keg WHERE brew_id IS NOT NULL AND ship_date IS NOT NULL AND return_date IS NULL;";
 			
 			if ($res = mysqli_query($con, $sql)){
@@ -183,6 +183,8 @@
 				$rowTotalShipped = $row['total_shipped'];
 			
 			}
+			
+
 			
 		?>
 			
@@ -204,6 +206,27 @@
 				</div>
 
 			</div>
+			
+		<?php
+						//Query for list of kegs filled in house
+        	$sql = "SELECT barcode FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NOT NULL AND ship_date IS NULL;";
+                                        
+                        // If query is successful
+            if ($res = mysqli_query($con, $sql)){
+                                		
+                         // Loop through all rows
+            	while ($row = mysqli_fetch_array($res)){
+                                                        
+                  	$rowBarcodeFilled = $row['barcode'];
+                                                        
+                   	echo $rowBarcodeFilled . "<br>";
+					   
+                                			
+                               }
+        
+                           }
+				?>
+						   
 			<div class="row">
 				<div class="col-md-2">
 					<h5>Kegs Shipped Out: </h5>
@@ -213,6 +236,25 @@
 				</div>
 
 			</div>
+			<?php
+						//Query for list of kegs shipped out
+        	$sql = "SELECT barcode FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NOT NULL AND ship_date IS NOT NULL AND return_date IS NULL;";
+                                        
+                                        // If query is successful
+            if ($res = mysqli_query($con, $sql)){
+                                		
+                                		// Loop through all rows
+            	while ($row = mysqli_fetch_array($res)){
+                                                        
+                  	$rowBarcodeShipped = $row['barcode'];
+                                                        
+                   	echo $rowBarcodeShipped . "<br>";
+					   
+                                			
+                               }
+        
+                           }
+						   ?>
 			<div class="row">
 				<div class="col-md-2">
 					<h5>Kegs Available: </h5>
@@ -222,6 +264,26 @@
 				</div>
 
 			</div>
+			
+		<?php
+						//Query for list of kegs available
+        	$sql = "SELECT barcode FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NULL;";
+                                        
+                        // If query is successful
+            if ($res = mysqli_query($con, $sql)){
+                                		
+                         // Loop through all rows
+            	while ($row = mysqli_fetch_array($res)){
+                                                        
+                  	$rowBarcodeEmpty = $row['barcode'];
+                                                        
+                   	echo $rowBarcodeEmpty . "<br>";
+					   
+                                			
+                               }
+        
+                           }
+						   ?>
 		</div>
 		
 		

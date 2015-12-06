@@ -49,6 +49,7 @@
 		}
 		
 		header("Location: $redirectTo");
+		die();
 		
 	}
 	

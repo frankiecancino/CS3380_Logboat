@@ -17,6 +17,10 @@ body {
  	margin-right: 25px;
 }
 
+.top-buffer {
+	padding-top:20px;
+}
+
 #socialMedia {
 	float: left;
 	margin-left: 12%;
