@@ -6,6 +6,7 @@
 	 * Authors:     Quinton D Miller
 	 *
 	 */
+	 
 	$pageOptions["script"] = true;
 	$pageOptions["redirectTo"] = "beer2.php";
 	
@@ -20,7 +21,7 @@
 	}
 	else{
 		
-		die("Beer name and/or type not entered");
+		redirect2("Beer name and/or type not entered", "warning");
 		
 	}
 	
@@ -28,7 +29,7 @@
 	$sql = "INSERT INTO beer (beer_name, beer_type_id) VALUES ('$name', $typeId);";
 	
 	// Execute
-	mysqli_query($con, $sql) or die("Error description: " . mysqli_error($con));
+	mysqli_query($con, $sql) or redirect2("Error description: " . mysqli_error($con), "warning");
 	
 	redirect2("Successfully added beer: $name", "success");
 		

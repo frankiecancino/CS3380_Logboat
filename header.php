@@ -1,11 +1,5 @@
 <?php
-	/*
-	 * header.php
-	 *
-	 * Description: Contains content that goes at beginning of each page
-	 * Authors:     Quinton D Miller
-	 *
-	 */	
+	
 ?>
 
 <!DOCTYPE html>
@@ -16,10 +10,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.5.0/fullcalendar.min.css">
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="/js/bootstrap-datetimepicker.js"></script>
+		<script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.5.0/fullcalendar.min.js'></script>
 		<!-- Tab selection script -->
 		<script>
 			$( document ).ready(function() {
@@ -43,10 +42,22 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-				        <li><a href="brew.php">Brew</a></li>
-						<li><a href="kegs.php">Kegs</a></li>
-						<li><a href="inventory.php">Inventory</a></li>
-						<li><a href="report.php">Reports</a></li>
+						<li class='dropdown'>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brew <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="brew.php">Brews</a></li>
+								<li><a href='brewCalendar.php'>Calendar View</a></li>
+								<li><a href="brew_tracking.php">Tracking</a></li>
+							</ul>
+						</li>
+						<li class='dropdown'>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventory <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="inventory.php">Ingredients</a></li>
+								<li><a href='kegs.php'>Kegs</a></li>
+								<li><a href="report.php">Reports</a></li>
+							</ul>
+						</li>
 						<li class='dropdown'>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Beer <span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -55,7 +66,6 @@
 							</ul>
 						</li>
 						<li><a href="fermentation.php">Fermentation</a></li>
-						<li><a href="brew_tracking.php">Brew Tracking</a></li>
 				        <?php if ($isAdmin) { ?>
 						<li class='dropdown'>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users <span class="caret"></span></a>

@@ -1,4 +1,7 @@
 <?php
+	$pageOptions["script"] = true;
+	$pageOptions["redirectTo"] = "recipes.php";
+	
 	include 'include.php';
 	
 	// Check post variable
@@ -36,5 +39,7 @@
 	// Execute
 	mysqli_query($con, $sql) or die("Error: " . mysqli_error($con));
 	
-	header("Location: recipes.php");
+	redirect2("Successfully Added an Ingredient to $beername", "success");
+	
+	//header("Location: recipes.php");
 ?>

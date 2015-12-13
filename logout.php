@@ -1,11 +1,13 @@
 <?php
 
+	$pageOptions["script"] = true;
+
 	include 'include.php';
 	
 	// Unset all session variables
 	session_unset();
 	
 	// Redirect
-	header("Location: index.php"); // ToDo: Better redirects	
+	redirect("index.php");
 
 ?>

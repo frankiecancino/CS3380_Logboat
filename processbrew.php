@@ -1,37 +1,30 @@
 <?php
-	
+	$pageOptions['script']     = true;
+	$pageOptions['redirectTo'] = "brew.php";
+    
 	include 'include.php';
 	
-	if(isset($_POST['beername'])){
-		$beername = $_POST['beername'];
-	}
-	else{
-		die("Beer name was not entered correctly.");
-	}
+	if (isset($_POST['beername']) && isset($_POST['startdate']) && isset($_POST['enddate'])){
+        
+        $beername = $_POST['beername'];
+        $startdate = date("Y-m-d H:i:s", strtotime($_POST['startdate']));
+		$enddate = date("Y-m-d H:i:s", strtotime($_POST['enddate']));
 	
-	if(isset($_POST['startdate'])){
-		$startdate = $_POST['startdate'];
 	}
-	else{
-		die("The start date was not entered correctly.");
+	else
+	{
+		redirect2("Post variables not set", "warning");
 	}
-	
-	if(isset($_POST['enddate'])){
-		$enddate = $_POST['enddate'];
-	}
-	else{
-		die("The end date was not entered correctly.");
-	}
-	
-	//$sql = "INSERT INTO brew (beer_name) VALUES ('$beername')";
-	//mysqli_query($con,$sql) or die("Error description: " . mysqli_error($con));
 	
 	// Query
 	$sql = "INSERT INTO brew (beer_name, start_date, end_date, user) VALUES ('$beername', '$startdate', '$enddate', '$loggedInUsername');";
+	mysqli_query($con,$sql) or redirect2("Error description: " . mysqli_error($con), "warning");
 	
 	// Execute
-	mysqli_query($con, $sql) or die("Error: " . mysqli_error($con));
+	//mysqli_query($con, $sql) or die("Error: " . mysqli_error($con));
 	
-	header("Location: brew.php");
+	redirect2("$loggedInUsername successfully created $beer_name brew", "success");
+	
+	//header("Location: brew.php");
 	
 ?>

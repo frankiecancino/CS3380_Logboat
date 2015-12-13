@@ -1,5 +1,7 @@
 <?php
 	
+	$pageOptions["redirectTo"] = "kegs.php";
+	
 	include 'include.php';
 	
 	if(isset($_POST['barcode'])){
@@ -10,7 +12,7 @@
 	}
 	
 	$sql = "INSERT INTO keg (barcode) VALUES ('$barcode')";
-	mysqli_query($con,$sql) or die("Error description: " . mysqli_error($con));
+	mysqli_query($con,$sql) or redirect2("Error description: " . mysqli_error($con), "warning");
 	
 	$sql = "SELECT keg_id FROM keg ORDER BY keg_id DESC LIMIT 1;"; 
 	//mysqli_query($con,$sql) or die("Error description: " . mysqli_error($con));
@@ -25,7 +27,8 @@
 			}
 		
 	$sql = "INSERT INTO brew_keg (keg_id) VALUES ('$keg_id');";
-	mysqli_query($con,$sql) or die("Error description: " . mysqli_error($con));
+	mysqli_query($con,$sql) or redirect2("Error description: " . mysqli_error($con), "warning");
 	
-	header("Location: kegs.php");
+	redirect2("Successfully added new keg: $barcode", "success");
+	die();
 ?>

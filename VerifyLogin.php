@@ -33,11 +33,12 @@
                 $_SESSION['UN'] = $username;
                 $_SESSION['username'] = $username;
                 $_SESSION['admin'] = $isAdmin;
-                header("Location: home.php");
+                
+                redirect2("Successfully logged in as $username", "success");
                 
         }else{
                 
-                header("Location: index.php");
+                redirect("index.php");
                 
         }
 ?>

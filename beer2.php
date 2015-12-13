@@ -75,7 +75,6 @@
                 <div class='table-responsive'>
                         <table class='table'>
                                 <tr>
-                                        <th>Id</th>
                                         <th>Name</th>
                                         <th>Type</th>
                                 </tr> 
@@ -83,7 +82,7 @@
 <?php
         
         // Query
-        $sql = "SELECT * FROM beer JOIN beer_type ON beer.beer_type_id=beer_type.type_id;";
+        $sql = "SELECT * FROM beer JOIN beer_type ON beer.beer_type_id=beer_type.type_id ORDER BY beer_id DESC";
         
         // If query is successful
 	if ($res = mysqli_query($con, $sql)){
@@ -92,10 +91,9 @@
 		while ($row = mysqli_fetch_array($res)){
 			
 			$rowBeerName = $row['beer_name'];
-			$rowBeerId = $row['beer_id'];
                         $rowBeerType = $row['type'];
 			
-                        echo "<tr><td>$rowBeerId</td><td>$rowBeerName</td><td>$rowBeerType</td></tr>";
+                        echo "<tr><td>$rowBeerName</td><td>$rowBeerType</td></tr>";
 			
 		}
                 

@@ -9,7 +9,7 @@
 	$pageOptions["redirectTo"] = "kegInfo.php?kegId=" . $_GET['kegId'];
         
 	include 'include.php';
-	
+
 	// Check if keg was submitted
 	if (isset($_GET['kegId'])){
 		
@@ -48,7 +48,7 @@
         if ($fillDate == NULL){
 ?>
 <div class='row'>
-        <div class='col-sm-6'>
+        <div class='col-sm-12'>
                 <h1>Fill Keg : <?php echo $barcode; ?></h1>
                 <form action='processUpdateKeg.php' method='POST'>
                         <input type='hidden' name='rowId' value='<?php echo $rowId; ?>'>
@@ -82,8 +82,8 @@
                         </div>
                         <div class="form-group">
                                 <label>Fill Date</label>
-                                <div class='input-group date' id='datetimepicker1'>
-                                        <input type='text' class="form-control" name='datetime' required='yes' />
+                                <div class='input-group date' id='datetimepicker'>
+                                        <input type='text' class="form-control" name='datetime' required='yes' id='datePicker' />
                                         <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -99,7 +99,7 @@
         else if ($shipDate == NULL){
 ?>
 <div class='row'>
-        <div class='col-sm-6'>
+        <div class='col-sm-12'>
                 <h1>Ship Keg : <?php echo $barcode; ?></h1>
                 <form action='processUpdateKeg.php' method='POST'>
                         <input type='hidden' name='rowId' value='<?php echo $rowId; ?>'>
@@ -110,8 +110,8 @@
                         </div>
                         <div class="form-group">
                                 <label>Ship Date</label>
-                                <div class='input-group date' id='datetimepicker1'>
-                                        <input type='text' class="form-control" name='datetime' required='yes' />
+                                <div class='input-group date' id='datetimepicker'>
+                                        <input type='text' class="form-control" name='datetime' required='yes' id='datePicker'/>
                                         <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -127,16 +127,16 @@
         else if ($returnDate == NULL){
 ?>
 <div class='row'>
-        <div class='col-sm-6'>
+        <div class='col-sm-12'>
                 <h1>Receive Keg : <?php echo $barcode; ?></h1>
                 <form action='processUpdateKeg.php' method='POST'>
                         <input type='hidden' name='rowId' value='<?php echo $rowId; ?>'>
-                        <input type='hidden' name='rowId' value='<?php echo $kegId; ?>'>
+                        <input type='hidden' name='kegId' value='<?php echo $kegId; ?>'>
                         <input type='hidden' name='kegState' value='2'>
                         <div class="form-group">
                                 <label>Return Date</label>
-                                <div class='input-group date' id='datetimepicker1'>
-                                        <input type='text' class="form-control" name='datetime' required='yes' />
+                                <div class='input-group date' id='datetimepicker'>
+                                        <input type='text' class="form-control" name='datetime' required='yes' id='datePicker'/>
                                         <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -153,4 +153,9 @@
         }	
         
 
-?>	
+?>
+<script>
+$(function() {
+	$("#datetimepicker").datetimepicker();
+});
+</script>

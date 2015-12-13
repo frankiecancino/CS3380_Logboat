@@ -17,11 +17,11 @@
                                 <label>Password</label>
                                 <input type='password' name='password' placeholder='Password' class='form-control' required='yes'>
                         </div>
-                        <div class='checkbox'>
-                                <label>
+                        <div class='btn-group' data-toggle='buttons'>
+                                <label class='btn btn-default'>
                                        <input type='checkbox' name='admin'> Admin
                                 </label>
-                        </div>
+                        </div> 
                         <button type="submit" class="btn btn-info">Submit</button>
                 </form>
         </div>

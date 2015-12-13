@@ -8,7 +8,7 @@
 	 */	 
 	include 'include.php';
 	
-	echo "<h1>Users</h1><p>";
+	echo "<h1>Users</h1>";
 	
 	// Query
 	$sql = "SELECT username, admin FROM user;";
@@ -16,28 +16,25 @@
 	
 	// If query is successful
 	if ($res = mysqli_query($con, $sql)){
-		
-		echo "<div class='col-md-3'>
-				<div class='form-group'>";
-		echo "<select multiple class='form-control'>";
-		
+
+		echo "<table class='table'>";
+
 		// Loop through all rows
 		while ($row = mysqli_fetch_array($res)){
 			
 			$rowUsername = $row['username'];
 			$rowAdmin = $row['admin'];
-			echo "<option>";
-			if ($rowAdmin){
-				echo "<b>$rowUsername</b>";
+			if (!empty($rowUsername)){
+				if ($rowAdmin){
+					echo "<tr><td><b>$rowUsername</b></td></tr>";
+				}
+				else{
+					echo "<tr><td>$rowUsername</td></tr>";
+				}
 			}
-			else{
-				echo "$rowUsername";
-			}
-			echo "</option>";
-			
 		}
 		
-		echo "</select>";
+		echo "</table>";
 		
 	}
 	

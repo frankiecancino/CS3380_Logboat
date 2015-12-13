@@ -20,7 +20,7 @@
     if (isset($_POST['rowId']) && isset($_POST['datetime']) && isset($_POST['kegState'])){
         
         $rowId =    $_POST['rowId'];
-        $datetime = $_POST['datetime'];
+        $datetime = date("Y-m-d H:i:s", strtotime($_POST['datetime']));
         $kegState = $_POST['kegState'];
         
         // Check filling state post variables
@@ -44,6 +44,18 @@
         else if ($kegState == 1){
             
             die("Error 2 : Post options not set");
+            
+        }
+        
+        // Check returning state post variables
+        if ($kegState == 2 && isset($_POST['kegId'])){
+            
+            $kegId = $_POST['kegId'];
+            
+        }
+        else if ($kegState == 2){
+            
+            die("Error 5 : Post options not set");
             
         }
         
@@ -84,14 +96,12 @@
     // Add new brew_keg row
     if ($kegState == 2){
         
-        $sql = "INSERT INTO brew_keg (keg_id) VALUES ('$kegId')";
-        mysqli_query($con,$sql) or die("Error description: " . mysqli_error($con));
+        $sql = "INSERT INTO brew_keg (keg_id) VALUES ($kegId)";
+        mysqli_query($con,$sql) or die("Error description: " . mysqli_error($con) . "<br> $sql");
         
     }   
     
     // Redirect on success
-    header("Location: " . $pageOptions["redirectTo"]);
-    
-    die();
+    redirect2("Successfully updated keg", "success");
     
 ?>

@@ -7,7 +7,8 @@
 	 *
 	 */
         $pageOptions["script"] = true;
-         
+        $pageOptions["redirectTo"] = "users.php";
+        
         include 'include.php';
         
         // Get POST variables
@@ -33,6 +34,6 @@
         mysqli_query($con,$sql) or die("Cannot execute query"); // ToDo: Output mysql error
         
         // Redirect on successful registration
-        header ("Location: home.php");
+        redirect2 ("Successfully added user: $username", "success");
         
 ?>

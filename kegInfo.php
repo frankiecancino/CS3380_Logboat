@@ -37,6 +37,32 @@
 		}
 		
 	}
+	else if (!empty($_GET['kegId'])){
+		
+		$kegId = $_GET['kegId'];
+		
+				
+		// Query
+		$sql = "SELECT barcode FROM keg WHERE keg_id = $kegId";
+		
+		// If query is successful
+		if ($res = mysqli_query($con, $sql)){
+			
+			// Redirect if no entries
+			if (mysqli_num_rows($res) == 0) redirect2("No entries for keg with barcode $barcode", "warning");
+			
+			// Get Keg Id
+			$row = mysqli_fetch_array($res);
+			$barcode = $row['barcode'];
+			
+		}
+		else{
+			
+			redirect2("MySQL Error: " . mysqli_error($con), "warning");
+			
+		}
+		
+	}
 	else{
 		
 		redirect2("No Keg Id supplied", "warning");
@@ -53,7 +79,7 @@
 		if (mysqli_num_rows($res) == 0) redirect2("No entries for keg $kegId", "warning");
 ?>	
 
-<div class='col-sm-6'>
+<div class='col-sm-12'>
 	<h1>Keg : <?php echo $barcode; ?></h1>
 	<div class="table-responsive">
 		<table class="table">
@@ -61,6 +87,7 @@
 				<th>Beer Name</th>
 				<th>Fill Date</th>
 				<th>Ship Date</th>
+				<th>Renter</th>
 				<th>Return Date</th>
 				<th>Update</th>
 			</tr>
@@ -80,11 +107,12 @@
 				}
 			}
 			
+			$rowRenter = $row['location'] ? $row['location'] : "N/A";
 			$rowFillDate = $row['fill_date'] ? $row['fill_date'] : "N/A";
 			$rowShipDate = $row['ship_date'] ? $row['ship_date'] : "N/A";
 			$rowReturnDate = $row['return_date'] ? $row['return_date'] : "N/A";
 			
-			echo "<tr><td>$rowBeerName</td><td>$rowFillDate</td><td>$rowShipDate</td><td>$rowReturnDate</td><td><a href='updateKeg.php?kegId=$kegId' class='btn btn-default'>Update</a></td></tr>";
+			echo "<tr><td>$rowBeerName</td><td>$rowFillDate</td><td>$rowShipDate</td><td>$rowRenter</td><td>$rowReturnDate</td><td><a href='updateKeg.php?kegId=$kegId' class='btn btn-default'>Update</a></td></tr>";
 			
 		}
 		

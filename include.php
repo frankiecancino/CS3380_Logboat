@@ -7,6 +7,9 @@
 	 *
 	 */
 	
+	// Start Output Buffer
+	ob_start();
+	
 	// Start session
 	session_set_cookie_params(86400, "/");
 	session_start();
@@ -22,11 +25,14 @@
 	$pageOptionsDefaults = array("loginRequired" => true
 						        ,"adminRequired" => false
 						        ,"script"        => false
+								,"title"         => ""
 								,"redirectTo"    => "home.php");
 	
 	// Set all options, that haven't already been set, to default
 	foreach($pageOptionsDefaults as $entry => $defaultValue){
+		
 		if (!isset($pageOptions[$entry])) $pageOptions[$entry] = $defaultValue;
+		
 	}
 
 	/* HTTPS Redirect */
@@ -46,7 +52,7 @@
 	/* Login Checking */
 	if ($pageOptions["loginRequired"] && !$isLoggedIn){
 		
-		header("Location: index.php");
+		redirect("index.php");
 		die();
 		
 	}
@@ -54,7 +60,7 @@
 	/* Admin Checking */
 	if ($pageOptions["adminRequired"] && !$isAdmin){
 		
-		header("Location: " . $pageOptions["redirectTo"]);
+		redirect2("Error: You must be an adming to access $fileName", "warning");
 		die();
 		
 	}

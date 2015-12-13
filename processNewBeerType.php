@@ -7,7 +7,7 @@
 	 *
 	 */
 	$pageOptions["script"] = true;
-	 
+	$pageOptions["redirectTo"] = "beerType.php";
 	include 'include.php';
 	
 	// Check post variable
@@ -18,7 +18,7 @@
 	}
 	else{
 		
-		die("Type not entered");
+		redirect2("Type not entered", "warning");
 		
 	}
 	
@@ -26,9 +26,9 @@
 	$sql = "INSERT INTO beer_type (type) VALUES ('$type');";
 	
 	// Execute
-	mysqli_query($con, $sql) or die("Error description: " . mysqli_error($con));
+	mysqli_query($con, $sql) or redirect2("Error description: " . mysqli_error($con), "warning");
 	
-	header("Location: beerType.php");
+	redirect2("Successfully added beer type: $type", "success");
 		
 	
 ?>

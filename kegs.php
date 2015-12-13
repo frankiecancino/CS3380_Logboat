@@ -6,12 +6,9 @@
      * Authors:    Sydney Bates, Quinton Miller
      *
      */		
-	if(!isset($_SERVER['HTTPS']) || !$_SERVER['HTTPS']) {
-		$url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-		header('Location: ' . $url);
-		//exit;
-	}
+	 
 	include 'include.php';
+	
 ?>
 <!--
 <html>
@@ -26,26 +23,8 @@
   		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   		<link rel="stylesheet" href="/resources/demos/style.css">
--->
-  		<script>
-  		$(function() {
-    		$( "#datepicker" ).datepicker();
-  		});
-  		</script>
-		<script>
-  		$(function() {
-    		$( "#datepicker2" ).datepicker();
-  		});
-  		</script>
-		<script>
-  		$(function() {
-    		$( "#datepicker3" ).datepicker();
-  		});
-  		</script>
-<!--
 		<div class="container">
--->
-<!--			<h3>Add a Keg</h3>
+			<h3>Add a Keg</h3>
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-3">
@@ -70,46 +49,48 @@
 				</div>
 				</form>	
 	-->
-	
-	<div class='row'>
-        <div class='col-sm-6'>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addKegModal">
-                  Add New Keg
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="addKegModal" tabindex="-1" role="dialog" aria-labelledby="lblModal">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Add A Keg</h4>
-                      </div>
-                      <div class="modal-body">
-                        <form action='ProcessKeg.php' method='POST'>
-                                <div class='form-group'>
-                                        <label>Barcode:</label>
-                                        <input type='text' name='barcode' placeholder='Barcode' class='form-control' required='yes' autofocus='yes'>
-                                </div>
-
-
-        				</select>
-                        
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Keg</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-        </div>
+<div class='row'>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addKegModal">
+		Add New Keg
+	</button>
+    <!-- Modal -->
+    <div class="modal fade" id="addKegModal" tabindex="-1" role="dialog" aria-labelledby="lblModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                	<h4 class="modal-title" id="myModalLabel">Add A Keg</h4>
+              	</div>
+          		<div class="modal-body">
+                	<form action='ProcessKeg.php' method='POST'>
+                		<div class='form-group'>
+                    		<label>Barcode:</label>
+                        	<input type='text' name='barcode' placeholder='Barcode' class='form-control' required='yes' autofocus='yes'>
+                    	</div>
+      			</div>
+              	<div class="modal-footer">
+                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Keg</button>
+                    </form>
+              	</div>
+		  	</div>
+    	</div>
+  	</div>
 </div>
-
-	
+<div class='row'>
+	<h2>Look-Up a Keg</h2>
+	<form action='kegInfo.php' method='POST'>
+		<div class='form-group'>
+			<label>Barcode</label>
+			<input type='text' class='form-control' name='barcode' placeholder='Barcode' required='yes'>
+		</div>
+		<button type='submit' class='btn btn-default'>Search Keg</button>
+	</form>
+</div>
+<!--
 							
-			<h3>Look-Up Keg</h3>
+			<h3>Look-up a Keg:</h3>
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-3">
@@ -132,9 +113,8 @@
 						</div>
 					</div>
 				</div>
-				</form>	
-				
-			<h3>Keg Inventory</h3>
+				</form>
+-->
 <?php
 			//query for total kegs
 			$sql = "SELECT COUNT(*) AS total FROM keg;";
@@ -187,108 +167,112 @@
 
 			
 		?>
-			
-			<div class="row">
-				<div class="col-md-2">
-					<h5>Total Kegs: </h5>
-				</div>
-				<div class="col-md-1">
-					<h5><?php echo $rowTotalInventory; ?></h5>
-				</div>
-
-			</div>
-			<div class="row">
-				<div class="col-md-2">
-					<h5>Kegs Filled In-House: </h5>
-				</div>
-				<div class="col-md-1">
-					<h5><?php echo $rowTotalFilled; ?></h5>
-				</div>
-
-			</div>
-			
-		<?php
-						//Query for list of kegs filled in house
-        	$sql = "SELECT barcode FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NOT NULL AND ship_date IS NULL;";
-                                        
-                        // If query is successful
-            if ($res = mysqli_query($con, $sql)){
-                                		
-                         // Loop through all rows
-            	while ($row = mysqli_fetch_array($res)){
-                                                        
-                  	$rowBarcodeFilled = $row['barcode'];
-                                                        
-                   	echo $rowBarcodeFilled . "<br>";
-					   
-                                			
-                               }
-        
-                           }
-				?>
+<div class='row'>
+	<h2>Keg Inventory (<?php echo $rowTotalInventory; ?>)</h2>
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingOne">
+	      <h4 class="panel-title">
+	        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+	        	Filled Kegs (<?php echo $rowTotalFilled; ?>)
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+	      <div class="panel-body">
+	<?php
+				//Query for list of kegs filled in house
+	        	$sql = "SELECT barcode, keg_id FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NOT NULL AND ship_date IS NULL;";
+	                                        
+	            // If query is successful
+	            if ($res = mysqli_query($con, $sql)){
+	                echo "<table class='table'>";                		
+	                // Loop through all rows
+	            	while ($row = mysqli_fetch_array($res)){
+	                                                        
+	                  	$rowBarcode = $row['barcode'];
+	                   	$rowKegId = $row['keg_id'];
+						                        
+	                   	echo "<tr><td>$rowBarcode</td><td><a href='kegInfo.php?kegId=$rowKegId' class='btn btn-default'>Keg Info</a></td><td><a href='updateKeg.php?kegId=$rowKegId' class='btn btn-default'>Update Keg</a></td>";
 						   
-			<div class="row">
-				<div class="col-md-2">
-					<h5>Kegs Shipped Out: </h5>
-				</div>
-				<div class="col-md-1">
-					<h5><?php echo $rowTotalShipped; ?></h5>
-				</div>
+	                                			
+					}
+	        		echo "</table>";
+				}	
+	?>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingTwo">
+	      <h4 class="panel-title">
+	        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+	          Shipped Kegs (<?php echo $rowTotalShipped; ?>)
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+	      <div class="panel-body">
+	<?php
+				//Query for list of kegs filled in house
+	        	$sql = "SELECT barcode, keg_id FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NOT NULL AND ship_date IS NOT NULL AND return_date IS NULL;";
+	                                        
+	            // If query is successful
+	            if ($res = mysqli_query($con, $sql)){
+	                echo "<table class='table'>";                		
+	                // Loop through all rows
+	            	while ($row = mysqli_fetch_array($res)){
+	                                                        
+	                  	$rowBarcode = $row['barcode'];
+	                   	$rowKegId = $row['keg_id'];
+						                        
+	                   	echo "<tr><td>$rowBarcode</td><td><a href='kegInfo.php?kegId=$rowKegId' class='btn btn-default'>Keg Info</a></td><td><a href='updateKeg.php?kegId=$rowKegId' class='btn btn-default'>Update Keg</a></td>";
+						   
+	                                			
+					}
+	        		echo "</table>";
+				}	
+	?>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingThree">
+	      <h4 class="panel-title">
+	        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+	          Available Kegs (<?php echo $rowTotalAvailable; ?>)
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+	      <div class="panel-body">
+	<?php
+				//Query for list of kegs filled in house
+	        	$sql = "SELECT barcode, keg_id FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NULL;";
+	                                        
+	            // If query is successful
+	            if ($res = mysqli_query($con, $sql)){
+	                echo "<table class='table'>";                		
+	                // Loop through all rows
+	            	while ($row = mysqli_fetch_array($res)){
+	                                                        
+	                  	$rowBarcode = $row['barcode'];
+	                   	$rowKegId = $row['keg_id'];
+						                        
+	                   	echo "<tr><td>$rowBarcode</td><td><a href='kegInfo.php?kegId=$rowKegId' class='btn btn-default'>Keg Info</a></td><td><a href='updateKeg.php?kegId=$rowKegId' class='btn btn-default'>Update Keg</a></td>";
+						   
+	                                			
+					}
+	        		echo "</table>";
+				}	
+	?>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
 
-			</div>
-			<?php
-						//Query for list of kegs shipped out
-        	$sql = "SELECT barcode FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NOT NULL AND ship_date IS NOT NULL AND return_date IS NULL;";
-                                        
-                                        // If query is successful
-            if ($res = mysqli_query($con, $sql)){
-                                		
-                                		// Loop through all rows
-            	while ($row = mysqli_fetch_array($res)){
-                                                        
-                  	$rowBarcodeShipped = $row['barcode'];
-                                                        
-                   	echo $rowBarcodeShipped . "<br>";
-					   
-                                			
-                               }
-        
-                           }
-						   ?>
-			<div class="row">
-				<div class="col-md-2">
-					<h5>Kegs Available: </h5>
-				</div>
-				<div class="col-md-1">
-					<h5><?php echo $rowTotalAvailable; ?></h5>
-				</div>
-
-			</div>
-			
-		<?php
-						//Query for list of kegs available
-        	$sql = "SELECT barcode FROM brew_keg JOIN keg USING (keg_id) WHERE brew_id IS NULL;";
-                                        
-                        // If query is successful
-            if ($res = mysqli_query($con, $sql)){
-                                		
-                         // Loop through all rows
-            	while ($row = mysqli_fetch_array($res)){
-                                                        
-                  	$rowBarcodeEmpty = $row['barcode'];
-                                                        
-                   	echo $rowBarcodeEmpty . "<br>";
-					   
-                                			
-                               }
-        
-                           }
-						   ?>
-		</div>
-		
-		
-	</body>
-</html>
+<?php include 'footer.php'; ?>
 
 
 

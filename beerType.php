@@ -31,13 +31,12 @@
                 <div class='table-responsive'>
                         <table class='table'>
                                 <tr>
-                                        <th>Id</th>
                                         <th>Type</th>
                                 </tr> 
 <?php
         
         // Query
-        $sql = "SELECT * FROM beer_type;";
+        $sql = "SELECT * FROM beer_type ORDER BY type_id DESC";
         
         // If query is successful
 	if ($res = mysqli_query($con, $sql)){
@@ -48,7 +47,7 @@
 			$rowType = $row['type'];
 			$rowId = $row['type_id'];
 			
-                        echo "<tr><td>$rowId</td><td>$rowType</td></tr>";
+                        echo "<tr><td>$rowType</td></tr>";
 			
 		}
 		

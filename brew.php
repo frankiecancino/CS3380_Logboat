@@ -12,28 +12,26 @@
     		$( "#datepicker2" ).datepicker();
   		});
   		</script>
- 
-	<div class="container">
-		<h3>Schedule a Brew</h3>
-			<div class="row">
-				<div class="col-md-1"></div>
-				<form action="processbrew.php" method="POST">
-					<div class="col-md-2">
-						<h5>Beer Name:</h5>
-					</div>
-					<div class="col-md-2">
-						<h5>Start Date:</h5>
-					</div>
-				<div class="col-md-2">
-						<h5>End Date:</h5>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-1"></div>
-					<form action="<?=$_SERVER['PHP_SELF']?>"method="POST">
-						<div class="col-md-2">
-							<div class="form-group">
-								<select type="text" class="form-control" name="beername" required="yes">
+		  
+	<div class='row'>
+        <div class='col-sm-6'>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBrewModal">
+                  Schedule Brew
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="addBrewModal" tabindex="-1" role="dialog" aria-labelledby="lblModal">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Schedule a Brew</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form action='processbrew.php' method='POST'>
+                                <div class="form-group">
+									<label>Beer Name</label>
+								<select type="text" class="form-control" name="beername" required>
 	  								<?php
 										//Query
 										$sql = "SELECT * FROM beer;";
@@ -46,66 +44,76 @@
                                                 
                                                 $rowTypeId = $row['beer_id'];
                                                 $rowType = $row['beer_name'];
-                                                echo "<option value='$rowTypeId'>$rowType</option>";
+                                                echo "<option value='$rowType'>$rowType</option>";
                         					}
                                			}
 									?>
 								</select>
 							</div>
-						</div>
-						<div class="col-md-2">
+                        	<div class='form-group'>
+                                <label>Start Date</label>
+        						<div class="form-group">
+									<input type="text" class="form-control" name="startdate" id="datepicker" required>
+								</div>
+                        	</div>
 							<div class="form-group">
-								<input type="text" class="form-control" name="startdate" id="datepicker" required="yes">
+								<label>End Date</label>
+								<div class="form-group">
+									<input type="text" class="form-control" name="enddate" id="datepicker2" required>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="form-group">
-								<input type="text" class="form-control" name="enddate" id="datepicker2" required="yes">
-							</div>
-						</div>
-						<div class="col-md-1">
-							<div class="form-group">
-								<input class="btn btn-info" type="submit" name="submit" value="submit" id="button"/>
-							</div>
-						</div>
-				</form>	
-		</div>
+                      	<div class="modal-footer">
+                        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        	<button type="submit" class="btn btn-primary">Schedule</button>
+                        	</form>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+	</div>
+</div>
+<br>
 		
-		<?php
-		        // Query
-		        $sql = "SELECT * FROM brew ORDER BY end_date ASC, start_date ASC, beer_name ASC;";
-		        
-		        // If query is successful
-			if ($res = mysqli_query($con, $sql)){
-				
-				//$tempName = $row['name'];
-				$count = 0;
-				
-				// Loop through all rows
-				while ($rowName == $tempName && $row = mysqli_fetch_array($res)){
-					
-					//$tempName = $row['name'];
-					$rowName = $row['beername'];
-					$rowStart = $row['startdate'];
-					$rowEnd = $row['enddate'];
-					$rowUnit = $row['unit_name'];
-					
-					if ($tempName != $rowName)
-					{
-						echo "<h2>$rowName</h2>";
-						$count++;
-					}
-					
-					echo "$rowIngredient: $rowAmount $rowUnit<br>";
-					//echo "Name: $rowName<br> Ingredient: $rowIngredient<br> Amount: $rowAmount<br> Unit: $rowUnit<br><br>";
-					
-					//$tempName = $row['name'];
-				}
-				echo "<br><p class='text-center'>Total brews: $count</p>";
-			}
-		        
-		        echo "</div></div>";
-		        include 'footer.php';        
-		?>
-	</body>
-</html>
+		
+<div class='row'>
+	<div class='col-sm-8'>
+		<h1>Brews</h1>
+        <div class='table-responsive'>
+        	<table class='table'>
+            	<tr>
+	                <th>ID</th>
+	                <th>Name</th>
+	                <th>Start Date</th>
+					<th>End Date</th>
+					<th>Username</th>
+	        	</tr> 
+
+<?php
+        
+    // Query
+    $sql = "SELECT * FROM brew ORDER BY end_date ASC, start_date ASC, beer_name ASC;";
+    
+    // If query is successful
+	if ($res = mysqli_query($con, $sql))
+	{	
+		$count = 0;
+		
+		// Loop through all rows
+		while ($row = mysqli_fetch_array($res))
+		{	
+			$rowId = $row['brew_id'];
+			$rowName = $row['beer_name'];
+			$rowStart = $row['start_date'];
+			$rowEnd = $row['end_date'];
+			$rowUser = $row['user'];
+		
+            echo "<tr><td>$rowId</td><td>$rowName</td><td>$rowStart</td><td>$rowEnd</td><td>$rowUser</td></tr>";
+			$count++;
+		}   
+	}
+        
+echo "</table></div></div></div>";
+echo "<br><p class='text-center'>Total brews: $count</p><br>";
+include 'footer.php';        
+?>

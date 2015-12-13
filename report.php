@@ -9,7 +9,6 @@
 <html>
 	<body>
 		<meta charset="utf-8">
-  		<title>jQuery UI Datepicker - Default functionality</title>
   		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
   		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -24,7 +23,7 @@
   		</script>
 		  
 		<div class="container">
-			<h3>Reports</h3>
+			<h4>Select dates</h4>
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-2">
@@ -52,6 +51,7 @@
 					</div>
 				</form>	
 			</div>
+			<hr>
 		<script type="text/javascript" src="fusioncharts-suite-xt/js/fusioncharts.js"></script>
 		<script type="text/javascript" src="fusioncharts-suite-xt/js/themes/fusioncharts.theme.ocean.js"></script>
 
@@ -60,7 +60,7 @@
 	$columnChart = new FusionCharts("column3d", "ex1" , 600, 400, "chart-1", "json", '{  
 		   "chart":{  
 			  "caption":"Logboat\'s Reports",
-			  "subCaption":"Top 5 brews in the last month by revenue",
+			  "subCaption":"Top 5 brews from the last month by revenue",
 			  "numberPrefix":"$",
 			  "theme":"ocean"
 		   },
