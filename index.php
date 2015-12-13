@@ -29,5 +29,6 @@
      </div>
      </div>
      <image id="logboat_scene" src="images/logboat_scene.jpg" alt="logboat_scene">
+     <iframe id="logboat_scene" width="560" height="315" src="https://www.youtube.com/embed/YZpZqeJ4Kz4" frameborder="0" allowfullscreen></iframe>
   </body>
 </html>
