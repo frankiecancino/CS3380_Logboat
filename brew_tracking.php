@@ -1,5 +1,5 @@
 <?php
-     /*Copyright (c) 2015 Frankie Cancino, Quinton Miller, Trent Broeker, Sydney Bates, Matt Haruza
+/*Copyright (c) 2015 Frankie Cancino, Quinton Miller, Trent Broeker, Sydney Bates, Matt Haruza
 
 
 
@@ -26,155 +26,417 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 	include 'include.php';
-
-
+  include 'fusioncharts.php';
 ?>
-<html>
-	<body>
-        <h4>Select a brew to track:</h4>
-        <div class="row">
-					<div class="col-md-1"></div>
-					<form action="<?=$_SERVER['PHP_SELF']?>"method="POST">
-						<div class="col-md-2">
-							<div class="form-group">
-								<select type="text" class="form-control" name="beername" required="yes">
-	  								<?php
-										//Query
-										$sql = "SELECT * FROM beer;";
-                                
-                                		// If query is successful
-                        				if ($res = mysqli_query($con, $sql)){
-                        		
-                        					// Loop through all rows
-                        					while ($row = mysqli_fetch_array($res)){
-                                                
-                                                $rowTypeId = $row['beer_id'];
-                                                $rowType = $row['beer_name'];
-                                                echo "<option value='$rowTypeId'>$rowType</option>";
-                        					}
-                               			}
-									?>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="form-group">
-								<input type="text" class="form-control" name="startdate" id="datepicker" required="yes">
-							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="form-group">
-								<input type="text" class="form-control" name="enddate" id="datepicker2" required="yes">
-							</div>
-						</div>
-						<div class="col-md-1">
-							<div class="form-group">
-								<input class="btn btn-info" type="submit" name="submit" value="submit" id="button"/>
-							</div>
-						</div>
-				</form>	
-		</div>
-        <hr>
-		<script type="text/javascript" src="fusioncharts-suite-xt/js/fusioncharts.js"></script>
-		<script type="text/javascript" src="fusioncharts-suite-xt/js/themes/fusioncharts.theme.ocean.js"></script>
-<?php
-	include 'fusioncharts.php';
-	$columnChart = new FusionCharts("InverseMSLine", "ex1" , 600, 400, "chart-1", "json", '{  
-		   "chart": {
-        "caption": "Brew Tracking",
-        "subCaption": "Last Week",
-        "showBorder": "0",
-        "xAxisName": "Day",
-        "yAxisName": "Time (In Sec)",
-        "numberSuffix": "s",
-        "lineThickness": "2",
-        "paletteColors": "#008ee4,#6baa01",
-        "baseFontColor": "#333333",
-        "baseFont": "Helvetica Neue,Arial",
-        "captionFontSize": "14",
-        "subcaptionFontSize": "14",
+</head>
+      <style>
+        #chartContainer2,#chartContainer3,#chartContainer4,#chartContainer5,#chartContainer6,#chartContainer7{
+          float: left;
+        }
+       </style>
+  		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <script type="text/javascript" src="fusioncharts-suite-xt/js/fusioncharts.js"></script>
+      <script type="text/javascript" src="fusioncharts-suite-xt/js/themes/fusioncharts.theme.ocean.js"></script>
+      <script type="text/javascript">
+      FusionCharts.ready(function(){
+      var phChart = new FusionCharts({
+        "type": "column3d",
+        "renderAt": "chartContainer",
+        "width": "500",
+        "height": "300",
+        "dataFormat": "json",
+        "dataSource": {
+          "chart": {
+              "caption": "Brew Tracking",
+              "subCaption": "PH Levels",
+              "xAxisName": "Brew ID",
+              "yAxisName": "PH Level",
+              "theme": "fint"
+           },
+          "data": [
+              {
+                 "label": "1",
+                 "value": "5.4"
+              },
+              {
+                 "label": "11",
+                 "value": "5.2"
+              },
+              {
+                 "label": "21",
+                 "value": "5.2"
+              },
+              {
+                 "label": "31",
+                 "value": "5.3"
+              },
+              {
+                 "label": "41",
+                 "value": "5.4"
+              },
+              {
+                 "label": "51",
+                 "value": "5.5"
+              },
+              {
+                 "label": "61",
+                 "value": "5.3"
+              },
+              {
+                  "label": "71",
+                  "value": "5.2"
+              }
+           ]
+        }
+    });
+
+    phChart.render();
+    
+    var dateChart = new FusionCharts({
+        "type": "vled",
+        "renderAt": "chartContainer2",
+        "width": "250",
+        "height": "300",
+        "dataFormat": "json",
+        "dataSource": {
+    "chart": {
+        "caption": "Brew ID: 1",
         "subcaptionFontBold": "0",
-        "bgColor": "#ffffff",
+        "lowerLimit": "0",
+        "upperLimit": "100",
+        "lowerLimitDisplay": "Start",
+        "upperLimitDisplay": "Complete",
+        "numberSuffix": "%",
+        "showValue": "0",
+        "showBorder": "0",
         "showShadow": "0",
-        "showLegend": "0",
-        "canvasBgColor": "#ffffff",
-        "canvasBorderAlpha": "0",
-        "divlineAlpha": "100",
-        "divlineColor": "#999999",
-        "divlineThickness": "1",
-        "divLineDashed": "1",
-        "divLineDashLen": "1",
-        "divLineGapLen": "1",
-        "showXAxisLine": "1",
-        "xAxisLineThickness": "1",
-        "xAxisLineColor": "#999999",
-        "showAlternateHGridColor": "0",
-        "toolTipColor": "#ffffff",
-        "toolTipBorderThickness": "0",
-        "toolTipBgColor": "#000000",
-        "toolTipBgAlpha": "80",
-        "toolTipBorderRadius": "2",
-        "toolTipPadding": "5"
+        "tickMarkDistance": "5",
+        "alignCaptionWithCanvas": "1",
+        "captionAlignment": "center",
+        "bgcolor": "#ffffff"
     },
-    "categories": [
-        {
-            "category": [
-                {
-                    "label": "Mon"
-                },
-                {
-                    "label": "Tue"
-                },
-                {
-                    "label": "Wed"
-                },
-                {
-                    "label": "Thu"
-                },
-                {
-                    "label": "Fri"
-                },
-                {
-                    "label": "Sat"
-                },
-                {
-                    "label": "Sun"
-                }
-            ]
+    "colorRange": {
+        "color": [
+            {
+                "minValue": "0",
+                "maxValue": "45",
+                "code": "#8e0000"
+            },
+            {
+                "minValue": "45",
+                "maxValue": "75",
+                "code": "#f2c500"
+            },
+            {
+                "minValue": "75",
+                "maxValue": "100",
+                "code": "#1aaf5d"
+            }
+        ]
+    },
+    "value": "84"
+}
         }
-    ],
-    "dataset": [
-        {
-            "seriesname": "Loading Time",
-            "allowDrag": "0",
-            "data": [
-                {
-                    "value": "6"
-                },
-                {
-                    "value": "5.8"
-                },
-                {
-                    "value": "5"
-                },
-                {
-                    "value": "4.3"
-                },
-                {
-                    "value": "4.1"
-                },
-                {
-                    "value": "3.8"
-                },
-                {
-                    "value": "3.2"
-                }
-            ]
+    );
+
+    dateChart.render();
+    
+    var dateChart = new FusionCharts({
+        "type": "vled",
+        "renderAt": "chartContainer3",
+        "width": "250",
+        "height": "300",
+        "dataFormat": "json",
+        "dataSource": {
+    "chart": {
+        "caption": "Brew ID: 31",
+        "subcaptionFontBold": "0",
+        "lowerLimit": "0",
+        "upperLimit": "100",
+        "lowerLimitDisplay": "Start",
+        "upperLimitDisplay": "Complete",
+        "numberSuffix": "%",
+        "showValue": "0",
+        "showBorder": "0",
+        "showShadow": "0",
+        "tickMarkDistance": "5",
+        "alignCaptionWithCanvas": "1",
+        "captionAlignment": "center",
+        "bgcolor": "#ffffff"
+    },
+    "colorRange": {
+        "color": [
+            {
+                "minValue": "0",
+                "maxValue": "45",
+                "code": "#8e0000"
+            },
+            {
+                "minValue": "45",
+                "maxValue": "75",
+                "code": "#f2c500"
+            },
+            {
+                "minValue": "75",
+                "maxValue": "100",
+                "code": "#1aaf5d"
+            }
+        ]
+    },
+    "value": "94"
+}
         }
-    ]
-}');
-	$columnChart->render();
+    );
+
+    dateChart.render();
+    var dateChart = new FusionCharts({
+        "type": "vled",
+        "renderAt": "chartContainer4",
+        "width": "250",
+        "height": "300",
+        "dataFormat": "json",
+        "dataSource": {
+    "chart": {
+        "caption": "Brew ID: 41",
+        "subcaptionFontBold": "0",
+        "lowerLimit": "0",
+        "upperLimit": "100",
+        "lowerLimitDisplay": "Start",
+        "upperLimitDisplay": "Complete",
+        "numberSuffix": "%",
+        "showValue": "0",
+        "showBorder": "0",
+        "showShadow": "0",
+        "tickMarkDistance": "5",
+        "alignCaptionWithCanvas": "1",
+        "captionAlignment": "center",
+        "bgcolor": "#ffffff"
+    },
+    "colorRange": {
+        "color": [
+            {
+                "minValue": "0",
+                "maxValue": "45",
+                "code": "#8e0000"
+            },
+            {
+                "minValue": "45",
+                "maxValue": "75",
+                "code": "#f2c500"
+            },
+            {
+                "minValue": "75",
+                "maxValue": "100",
+                "code": "#1aaf5d"
+            }
+        ]
+    },
+    "value": "94"
+}
+        }
+    );
+
+    dateChart.render();
+    var dateChart = new FusionCharts({
+        "type": "vled",
+        "renderAt": "chartContainer5",
+        "width": "250",
+        "height": "300",
+        "dataFormat": "json",
+        "dataSource": {
+    "chart": {
+        "caption": "Brew ID: 51",
+        "subcaptionFontBold": "0",
+        "lowerLimit": "0",
+        "upperLimit": "100",
+        "lowerLimitDisplay": "Start",
+        "upperLimitDisplay": "Complete",
+        "numberSuffix": "%",
+        "showValue": "0",
+        "showBorder": "0",
+        "showShadow": "0",
+        "tickMarkDistance": "5",
+        "alignCaptionWithCanvas": "1",
+        "captionAlignment": "center",
+        "bgcolor": "#ffffff"
+    },
+    "colorRange": {
+        "color": [
+            {
+                "minValue": "0",
+                "maxValue": "45",
+                "code": "#8e0000"
+            },
+            {
+                "minValue": "45",
+                "maxValue": "75",
+                "code": "#f2c500"
+            },
+            {
+                "minValue": "75",
+                "maxValue": "100",
+                "code": "#1aaf5d"
+            }
+        ]
+    },
+    "value": "35"
+}
+        }
+    );
+
+    dateChart.render();
+    var dateChart = new FusionCharts({
+        "type": "vled",
+        "renderAt": "chartContainer6",
+        "width": "250",
+        "height": "300",
+        "dataFormat": "json",
+        "dataSource": {
+    "chart": {
+        "caption": "Brew ID: 61",
+        "subcaptionFontBold": "0",
+        "lowerLimit": "0",
+        "upperLimit": "100",
+        "lowerLimitDisplay": "Start",
+        "upperLimitDisplay": "Complete",
+        "numberSuffix": "%",
+        "showValue": "0",
+        "showBorder": "0",
+        "showShadow": "0",
+        "tickMarkDistance": "5",
+        "alignCaptionWithCanvas": "1",
+        "captionAlignment": "center",
+        "bgcolor": "#ffffff"
+    },
+    "colorRange": {
+        "color": [
+            {
+                "minValue": "0",
+                "maxValue": "45",
+                "code": "#8e0000"
+            },
+            {
+                "minValue": "45",
+                "maxValue": "75",
+                "code": "#f2c500"
+            },
+            {
+                "minValue": "75",
+                "maxValue": "100",
+                "code": "#1aaf5d"
+            }
+        ]
+    },
+    "value": "43"
+}
+        }
+    );
+
+    dateChart.render();
+    
+     var dateChart = new FusionCharts({
+        "type": "vled",
+        "renderAt": "chartContainer7",
+        "width": "250",
+        "height": "300",
+        "dataFormat": "json",
+        "dataSource": {
+    "chart": {
+        "caption": "Brew ID: 71",
+        "subcaptionFontBold": "0",
+        "lowerLimit": "0",
+        "upperLimit": "100",
+        "lowerLimitDisplay": "Start",
+        "upperLimitDisplay": "Complete",
+        "numberSuffix": "%",
+        "showValue": "0",
+        "showBorder": "0",
+        "showShadow": "0",
+        "tickMarkDistance": "5",
+        "alignCaptionWithCanvas": "1",
+        "captionAlignment": "center",
+        "bgcolor": "#ffffff"
+    },
+    "colorRange": {
+        "color": [
+            {
+                "minValue": "0",
+                "maxValue": "45",
+                "code": "#8e0000"
+            },
+            {
+                "minValue": "45",
+                "maxValue": "75",
+                "code": "#f2c500"
+            },
+            {
+                "minValue": "75",
+                "maxValue": "100",
+                "code": "#1aaf5d"
+            }
+        ]
+    },
+    "value": "63"
+}
+        }
+    );
+
+    dateChart.render();
+   
+   })
+</script>
+</head>
+<body>
+<div class='row'>
+	<div class='col-sm-8'>
+		<h3>Track a Brew</h3>
+        <div class='table-responsive'>
+        	<table class='table'>
+            	<tr>
+	                <th>ID</th>
+	                <th>Name</th>
+	                <th>Start Date</th>
+					<th>End Date</th>
+					<th>Username</th>
+	        	</tr> 
+
+<?php
+        
+    // Query
+    $sql = "SELECT * FROM brew ORDER BY end_date ASC, start_date ASC, beer_name ASC;";
+    
+    // If query is successful
+	if ($res = mysqli_query($con, $sql))
+	{	
+		$count = 0;
+		
+		// Loop through all rows
+		while ($row = mysqli_fetch_array($res))
+		{	
+			$rowId = $row['brew_id'];
+			$rowName = $row['beer_name'];
+			$rowStart = $row['start_date'];
+			$rowEnd = $row['end_date'];
+			$rowUser = $row['user'];
+		
+            echo "<tr><td>$rowId</td><td>$rowName</td><td>$rowStart</td><td>$rowEnd</td><td>$rowUser</td></tr>";
+			$count++;
+		}   
+	}
+        
+echo "</table></div></div></div>";
+echo "<br><p class='text-center'>Total brews: $count</p><br>";
+include 'footer.php';        
 ?>
-	<div id="chart-1"></div>
-	</body>
-</html>
+  <div id="chartContainer"></div>
+  <center><h3>Still Brewing...</h3></center>
+  <?php
+      for($i = 0; $i < $count; $i++){
+        echo "<div id='chartContainer$i'></div>";
+      }
+      ?>
+
+</body>
+

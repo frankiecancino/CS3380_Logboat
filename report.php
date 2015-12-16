@@ -62,12 +62,12 @@ THE SOFTWARE.
 				<form action="<?=$_SERVER['PHP_SELF']?>"method="POST">
 					<div class="col-md-2">
 							<div class="form-group">
-								<input type="text" class="form-control" name="filldate" id="datepicker">
+								<input type="text" class="form-control" name="startdate" id="datepicker">
 							</div>
 					</div>
 					<div class="col-md-2">
 							<div class="form-group">
-								<input type="text" class="form-control" name="filldate" id="datepicker2">
+								<input type="text" class="form-control" name="enddate" id="datepicker2">
 							</div>
 					</div>
 					<div class="col-md-1">
@@ -78,43 +78,90 @@ THE SOFTWARE.
 				</form>	
 			</div>
 			<hr>
-		<script type="text/javascript" src="fusioncharts-suite-xt/js/fusioncharts.js"></script>
-		<script type="text/javascript" src="fusioncharts-suite-xt/js/themes/fusioncharts.theme.ocean.js"></script>
-
+	<div class='row'>
+	<div class='col-sm-8'>
+		<h3>Brew Report</h3>
+        <div class='table-responsive'>
+        	<table class='table'>
+            	<tr>
+	                <th>ID</th>
+	                <th>Name</th>
+	                <th>Start Date</th>
+					<th>End Date</th>
+					<th>Username</th>
+	        	</tr> 
+				<br>
 <?php
-	include 'fusioncharts.php';
-	$columnChart = new FusionCharts("column3d", "ex1" , 600, 400, "chart-1", "json", '{  
-		   "chart":{  
-			  "caption":"Logboat\'s Reports",
-			  "subCaption":"Top 5 brews from the last month by revenue",
-			  "numberPrefix":"$",
-			  "theme":"ocean"
-		   },
-		   "data":[  
-			  {  
-				 "label":"Shiphead",
-				 "value":"880000"
-			  },
-			  {  
-				 "label":"Mamoot",
-				 "value":"730000"
-			  },
-			  {  
-				 "label":"Snapper",
-				 "value":"590000"
-			  },
-			  {  
-				 "label":"Lookout",
-				 "value":"520000"
-			  },
-			  {  
-				 "label":"Bear Hair",
-				 "value":"330000"
-			  }
-		   ]
-		}');
-	$columnChart->render();
+	if(isset($_POST['startdate']) && isset($_POST['enddate'])){
+			$startdate = date("Y-m-d H:i:s", strtotime($_POST['startdate']));
+			$enddate = date("Y-m-d H:i:s", strtotime($_POST['enddate']));
+			print $startdate;
+			echo" - to - ";
+			print $enddate;
+		    // Query
+    $sql = "SELECT * FROM brew ORDER BY end_date ASC, start_date ASC, beer_name ASC;";
+	
+    // If query is successful
+	if ($res = mysqli_query($con, $sql))
+	{	
+		$count = 0;
+		
+		// Loop through all rows
+		while ($row = mysqli_fetch_array($res))
+		{	
+
+			$rowId = $row['brew_id'];
+			$rowName = $row['beer_name'];
+			$rowStart = $row['start_date'];
+			$rowEnd = $row['end_date'];
+			$rowUser = $row['user'];
+			
+			if ($rowStart >= $startdate && $rowEnd <= $enddate)
+			{
+	            echo "<tr><td>$rowId</td><td>$rowName</td><td>$rowStart</td><td>$rowEnd</td><td>$rowUser</td></tr>";
+				$count++;
+			}
+		}   
+	}
+echo "</table></div></div></div>";
+echo "<br><p class='text-center'>Total brews: $count</p><br>";
+	}
 ?>
-	<div id="chart-1"></div>
-	</body>
-</html>
+<?php
+	if(isset($_POST['startdate']) && isset($_POST['enddate'])){
+		        // Query
+			$sql = "";
+		    $sql = "SELECT * FROM recipe ORDER BY name ASC, ingredient_name ASC;";
+		        
+		        // If query is successful
+			if ($res = mysqli_query($con, $sql)){
+				
+				$tempName = $row['name'];
+				$count = 0;
+				echo "<h3>Ingredients Used</h3>";
+				// Loop through all rows
+				while ($rowName == $tempName && $row = mysqli_fetch_array($res)){
+					
+					$rowName = $row['name'];
+					$rowAmount = $row['amount'];
+					$rowIngredient = $row['ingredient_name'];
+					$rowUnit = $row['unit_name'];
+					
+					if ($tempName != $rowName)
+					{	
+						echo "<div class='row'>
+							<div class='col-sm-8'>
+								<h3>$rowName</h3>
+						        <div class='table-responsive'>
+						        	<table class='table'>";
+						$count++;
+					}
+					echo "<tr><td>$rowIngredient</td><td>$rowAmount</td><td>$rowUnit</td></tr>";
+					
+					$tempName = $row['name'];
+				}
+			}
+	        echo "</table></div></div></div>";
+		}
+		include 'footer.php';   
+?>

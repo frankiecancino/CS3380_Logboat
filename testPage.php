@@ -50,5 +50,6 @@ THE SOFTWARE.
 		
 		die("Error with query: $sql");
 		
-	}	
+	}
+	
 ?>
