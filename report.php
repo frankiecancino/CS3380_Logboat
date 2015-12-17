@@ -135,30 +135,24 @@ echo "<br><p class='text-center'>Total brews: $count</p><br>";
 		        
 		        // If query is successful
 			if ($res = mysqli_query($con, $sql)){
-				
-				$tempName = $row['name'];
 				$count = 0;
 				echo "<h3>Ingredients Used</h3>";
 				// Loop through all rows
-				while ($rowName == $tempName && $row = mysqli_fetch_array($res)){
+				while ($row = mysqli_fetch_array($res)){
 					
 					$rowName = $row['name'];
 					$rowAmount = $row['amount'];
 					$rowIngredient = $row['ingredient_name'];
 					$rowUnit = $row['unit_name'];
-					
-					if ($tempName != $rowName)
-					{	
+	
 						echo "<div class='row'>
 							<div class='col-sm-8'>
 								<h3>$rowName</h3>
 						        <div class='table-responsive'>
 						        	<table class='table'>";
 						$count++;
-					}
 					echo "<tr><td>$rowIngredient</td><td>$rowAmount</td><td>$rowUnit</td></tr>";
 					
-					$tempName = $row['name'];
 				}
 			}
 	        echo "</table></div></div></div>";
