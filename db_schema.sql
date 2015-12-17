@@ -1,6 +1,5 @@
 -- MySQL dump 10.13  Distrib 5.5.44, for debian-linux-gnu (x86_64)
 --
--- Host: us-cdbr-azure-central-a.cloudapp.net    Database: logboatmysqldb
 -- ------------------------------------------------------
 -- Server version	5.5.40-log
 
